@@ -6,7 +6,7 @@
 /*   By: lseghier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 02:35:15 by lseghier          #+#    #+#             */
-/*   Updated: 2023/07/03 04:43:56 by lseghier         ###   ########.fr       */
+/*   Updated: 2023/07/06 04:05:16 by lseghier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,16 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	i = 0;
 	j = 0;
-	len1 = len(s1);
-	len2 = len(s2);
+	len1 = ft_len(s1);
+	len2 = ft_len(s2);
 	str = (malloc (sizeof(char) * len1 + len2 + 1));
 	if (!s1 || !s2 || !str)
 		return (NULL);
 	while (i < len1)
-		str[i++] = s1[i++];
+	{
+		str[i] = s1[i];
+		i++;
+	}
 	while (j < len2)
 		str[i++] = s2[j++];
 	str[i] = '\0';
@@ -66,7 +69,10 @@ char	*get_current_line(char	*stash)
 		i++;
 	line = malloc((i + 2) * sizeof(char));
 	while (j <= i)
-		line[j++] = stash[j++];
+	{
+		line[j] = stash[j];
+		j++;
+	}
 	line[j] = 0;
 	return (line);
 }
@@ -83,7 +89,7 @@ char	*add_left_to_stash(char *stash)
 		i++;
 	if (!stash[i])
 		return (free(stash), NULL);
-	left = malloc((len(stash) - i) * sizeof(char));
+	left = malloc((ft_len(stash) - i) * sizeof(char));
 	if (!left)
 		return (free(stash), left);
 	j = i + 1;
@@ -96,4 +102,28 @@ char	*add_left_to_stash(char *stash)
 
 char	*get_next_line(int fd)
 {
+	static char	*stash;
+	char		*line;
+	char		*buffer;
+	int		readed;
+
+	readed = 1;
+	if (BUFFER_SIZE <= 0)
+		return (NULL);
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE +1));
+	if (!buffer)
+		return (NULL);
+	while (readed && !ft_strchr(stash, '\n'))
+	{
+		readed = read(fd, buffer, BUFFER_SIZE);
+		if (readed == -1)
+			return (free(buffer), NULL);
+		buffer[readed] = '\0';
+		stash = ft_strjoin(stash, buffer);
+		if (!stash)
+			return (free(buffer), NULL);
+	}
+	line = get_current_line(stash);
+	stash = add_left_to_stash(stash);
+	return (free(buffer), line);
 }
