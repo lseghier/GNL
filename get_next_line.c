@@ -6,11 +6,15 @@
 /*   By: lseghier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 02:35:15 by lseghier          #+#    #+#             */
-/*   Updated: 2023/07/09 18:43:48 by lseghier         ###   ########.fr       */
+/*   Updated: 2023/07/09 20:33:44 by lseghier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 42
+#endif
 
 int	ft_strchr(const char *str, int c)
 {
@@ -41,8 +45,8 @@ char	*ft_strjoin(char *s1, char *s2)
 	j = 0;
 	len1 = ft_len(s1);
 	len2 = ft_len(s2);
-	str = (malloc (sizeof(char) * len1 + len2 + 1));
-	if (!s1 || !s2 || !str)
+	str = malloc(sizeof(char) * len1 + len2 + 1);
+	if (!str)
 		return (NULL);
 	while (i < len1)
 	{
@@ -68,6 +72,8 @@ char	*get_current_line(char	*stash)
 	while (stash[i] && stash[i] != '\n')
 		i++;
 	line = malloc((i + 2) * sizeof(char));
+	if (!line)
+		return (NULL);
 	while (j <= i)
 	{
 		line[j] = stash[j];
@@ -91,7 +97,7 @@ char	*add_left_to_stash(char *stash)
 		return (free(stash), NULL);
 	left = malloc((ft_len(stash) - i) * sizeof(char));
 	if (!left)
-		return (free(stash), left);
+		return (free(stash), NULL);
 	j = i + 1;
 	k = 0;
 	while (stash[j])
@@ -127,3 +133,22 @@ char	*get_next_line(int fd)
 	stash = add_left_to_stash(stash);
 	return (free(buffer), line);
 }
+
+/*int	main(int argc, char **argv)
+{
+	char	*str;
+	int		fd;
+
+	if (argc != 2)
+   return (1);
+   fd = open(argv[1], O_RDONLY);
+   str = get_next_line(fd);
+   while (str)
+   {
+   printf("%s", str);
+   free(str);
+   str = get_next_line(fd);
+   }
+   free(str);
+   return (0);
+}*/
