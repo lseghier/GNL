@@ -6,7 +6,7 @@
 /*   By: lseghier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 02:35:25 by lseghier          #+#    #+#             */
-/*   Updated: 2023/07/06 04:06:21 by lseghier         ###   ########.fr       */
+/*   Updated: 2023/07/09 18:44:47 by lseghier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ size_t	ft_len(char *str)
 	{
 		while (str[i])
 			i++;
-	return (i);
+		return (i);
 	}
 	return (0);
 }

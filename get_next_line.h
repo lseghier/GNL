@@ -6,7 +6,7 @@
 /*   By: lseghier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 03:41:10 by lseghier          #+#    #+#             */
-/*   Updated: 2023/07/06 04:06:12 by lseghier         ###   ########.fr       */
+/*   Updated: 2023/07/09 18:50:55 by lseghier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,10 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 
-int	ft_strchr(const char *str, int c);
-char	*ft_strjoin(char *s1, char *s2);
 char	*get_current_line(char *stash);
 char	*add_left_to_stash(char	*stash);
 char	*get_next_line(int fd);
+int		ft_strchr(const char *str, int c);
 size_t	ft_len(char *str);
 
 #endif

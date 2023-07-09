@@ -6,7 +6,7 @@
 /*   By: lseghier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 02:35:15 by lseghier          #+#    #+#             */
-/*   Updated: 2023/07/06 04:05:16 by lseghier         ###   ########.fr       */
+/*   Updated: 2023/07/09 18:43:48 by lseghier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ char	*get_next_line(int fd)
 	static char	*stash;
 	char		*line;
 	char		*buffer;
-	int		readed;
+	int			readed;
 
 	readed = 1;
 	if (BUFFER_SIZE <= 0)
